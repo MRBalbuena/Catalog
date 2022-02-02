@@ -29,30 +29,36 @@ namespace Catalog.Respositories
             }
         }; // Target-typed new expression
 
-        public IEnumerable<Item> GetItems()
+        public async Task<IEnumerable<Item>> GetItemsAsync()
         {
-            return items;
+            return await Task.FromResult(items);
         }
 
-        public Item GetItem(Guid id)
+        public async Task<Item> GetItemAsync(Guid id)
         {
-            return items.Where(i => i.Id == id).SingleOrDefault();
+            var result = items.Where(i => i.Id == id).SingleOrDefault();
+            return await Task.FromResult(result);
         }
 
-        public void CreateItem(Item item){
-            items.Add(item);
+        public async Task CreateItemAsync(Item item){
+            items.Add(item);            
+            await Task.CompletedTask;
         }
 
-        public void UpdateItem(Item item)
+        public async Task UpdateItemAsync(Item item)
         {
             var index = items.FindIndex(existingItem => existingItem.Id == item.Id);
             items[index] = item;
+            await Task.CompletedTask;
         }
 
-        public void DeleteItem(Guid id)
+        public async Task DeleteItemAsync(Guid id)
         {
             var index = items.FindIndex(existingItem => existingItem.Id == id);
             items.RemoveAt(index);
+            await Task.CompletedTask;
         }
+
+
     }
 }
