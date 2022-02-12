@@ -76,7 +76,7 @@ app.UseEndpoints(endpoints => {
     });
 });
 
-app.UseHttpsRedirection(); 
+app.UseHttpsRedirection(); // Doesn't seem to redirect
 
 app.UseAuthorization();
 
